@@ -1,31 +1,20 @@
 pipeline {
     agent any
-     tools {
+    tools {
         jdk 'JDK11'
     }
-
-	stages 
-	{
+    stages {
         stage('build') {
             steps {
-                echo 'Building the source'
-                sh 'mvn clean compile'
+                echo 'Build started'
+                bat 'mvn --version'
+                bat 'mvn clean compile'
+                echo 'Build Compiled Succesfully'
+                bat 'mvn test'
+                echo 'Build Testing finished successfully'
+                bat 'mvn package'
+                echo 'Build Finished Succesfully'
             }
         }
-        stage('test') {
-            steps {
-                echo 'Testing source'
-                sh 'mvn test'
-            }
-        }
-		stage('deploy') {
-            steps {
-                echo 'packaging'
-                sh 'mvn package'
-            }
-        }
-
-
-	}
-
+    }
 }
